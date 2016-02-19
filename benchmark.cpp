@@ -10,7 +10,7 @@ float *create_rand_nums(long num_elements) {
   assert(rand_nums != NULL);
   long i;
   for (i = 0; i < num_elements; i++) {
-    rand_nums[i] = (rand() / (float)RAND_MAX);
+    rand_nums[i] = rand();
   }
   return rand_nums;
 }
@@ -20,19 +20,26 @@ float compute_avg(float *array, long num_elements) {
   float sum = 0.f;
   long i;
   for (i = 0; i < num_elements; i++) {
-    sum += array[i];
+    sum /= array[i];
   }
   return sum / num_elements;
 }
 
+float compute_total_avg(float *array, long num_elements) {
+  float sum = 0.f;
+  long i;
+  for (i = 0; i < num_elements; i++) {
+    sum += array[i];
+  }
+  return sum / num_elements;
+}
 int main(int argc, char **argv) {
   if (argc != 2) {
     fprintf(stderr, "Usage: avg num_elements_per_proc\n");
     exit(1);
   }
 
-  long num_elements_per_proc = atol(argv[1]);
-  printf("%ld\n", num_elements_per_proc);
+  long max_num_elements = atol(argv[1]);
   // Seed the random number generator to get different results each time
   srand(time(NULL));
 
@@ -43,12 +50,15 @@ int main(int argc, char **argv) {
   int world_size;
   MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
+  long num_elements_per_proc = max_num_elements / world_size;
+  printf("Number of elements per process: %ld\n", num_elements_per_proc);
+
   // Create a random array of elements on the root process. Its total
   // size will be the number of elements per process times the number
   // of processes
   float *rand_nums = NULL;
   if (world_rank == 0) {
-    rand_nums = create_rand_nums(num_elements_per_proc * world_size);
+    rand_nums = create_rand_nums(max_num_elements);
   }
 
   // For each process, create a buffer that will hold a subset of the entire
@@ -78,15 +88,8 @@ int main(int argc, char **argv) {
   // an average across an equal amount of elements, this computation will
   // produce the correct answer.
   if (world_rank == 0) {
-    float avg = compute_avg(sub_avgs, world_size);
+    float avg = compute_total_avg(sub_avgs, world_size);
     printf("Avg of all elements is %f\n", avg);
-    // Compute the average across the original data for comparison
-    float original_data_avg =
-        compute_avg(rand_nums, num_elements_per_proc * world_size);
-    printf("Avg computed across original data is %f\n", original_data_avg);
-
-    printf("The job took %ld seconds with %d processes\n", (time(NULL) - start),
-           world_size);
   }
 
   // Clean up
