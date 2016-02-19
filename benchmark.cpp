@@ -10,7 +10,7 @@ float *create_rand_nums(long num_elements) {
   assert(rand_nums != NULL);
   long i;
   for (i = 0; i < num_elements; i++) {
-    rand_nums[i] = rand();
+    rand_nums[i] = (rand() / (float)RAND_MAX);
   }
   return rand_nums;
 }
@@ -20,7 +20,7 @@ float compute_avg(float *array, long num_elements) {
   float sum = 0.f;
   long i;
   for (i = 0; i < num_elements; i++) {
-    sum /= array[i];
+    sum += array[i];
   }
   return sum / num_elements;
 }
