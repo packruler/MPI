@@ -18,10 +18,23 @@ float *create_rand_nums(long num_elements) {
 // Computes the average of an array of numbers
 float compute_avg(float *array, long num_elements) {
   float sum = 0.f;
+  float random = rand();
+  double temp;
   long i;
+  long x;
+  long y;
+  long total = 0;
   for (i = 0; i < num_elements; i++) {
     sum += array[i];
+    total++;
+    for (x = i; x < num_elements; x++) {
+      random = array[i] / array[x];
+      total++;
+    }
+    temp = random / temp;
   }
+  printf("Total: %ld\n", total);
+  printf("Temp: %f\n", temp);
   return sum / num_elements;
 }
 
@@ -33,6 +46,7 @@ float compute_total_avg(float *array, long num_elements) {
   }
   return sum / num_elements;
 }
+
 int main(int argc, char **argv) {
   if (argc != 2) {
     fprintf(stderr, "Usage: avg num_elements_per_proc\n");

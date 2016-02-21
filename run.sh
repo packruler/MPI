@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 
 mpicc benchmark.cpp -o benchmark
