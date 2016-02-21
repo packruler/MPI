@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
   MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
   long num_elements_per_proc = max_num_elements / world_size;
-  printf("Number of elements per process: %ld\n", num_elements_per_proc);
+  // printf("Number of elements per process: %ld\n", num_elements_per_proc);
 
   // Create a random array of elements on the root process. Its total
   // size will be the number of elements per process times the number

@@ -10,7 +10,7 @@ for i in $(seq 1 $MAX_NUM_PROCESSES); do
    clear
    echo "Working with $i processes"
    START=`date +%s%N | cut -b1-13`
-   mpiexec -np $i ./benchmark 1000000
+   mpiexec -np $i ./benchmark 10000000
 
    END=`date +%s%N | cut -b1-13`
 
