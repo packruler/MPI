@@ -26,4 +26,4 @@ while [[ $PROCESS_COUNT -le $MAX_NUM_PROCESSES ]]
    fi
 done
 
-sudo shutdown 1000000
+sudo shutdown 0
