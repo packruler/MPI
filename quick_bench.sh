@@ -22,6 +22,6 @@ while [ $PROCESS_COUNT -le $MAX_NUM_PROCESSES ]
    if [ $PROCESS_COUNT -eq 32 ]; then
       PROCESS_COUNT=36
    else
-      (PROCESS_COUNT= $PROCESS_COUNT * 2)
+      PROCESS_COUNT=$((PROCESS_COUNT * 2))
    fi
 done
