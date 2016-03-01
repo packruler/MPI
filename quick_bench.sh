@@ -8,7 +8,7 @@ OUTPUT_FILE="benchmark.txt"
 echo > $OUTPUT_FILE
 PROCESS_COUNT=1
 
-while [[ $PROCESS_COUNT -le $MAX_NUM_PROCESSES ]]
+while [ $PROCESS_COUNT -le $MAX_NUM_PROCESSES ]
  do
    # clear
    echo "Working with $PROCESS_COUNT processes"
