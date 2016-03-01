@@ -19,7 +19,7 @@ while [ $PROCESS_COUNT -le $MAX_NUM_PROCESSES ]
 
    DURATION=`expr $END - $START`
    echo "$PROCESS_COUNT processes took $DURATION milliseconds to complete" >> $OUTPUT_FILE
-   if [[ $PROCESS_COUNT -eq 32 ]]; then
+   if [ $PROCESS_COUNT -eq 32 ]; then
       PROCESS_COUNT=36
    else
       ((PROCESS_COUNT = PROCESS_COUNT * 2))
