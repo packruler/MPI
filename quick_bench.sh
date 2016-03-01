@@ -13,7 +13,7 @@ while [ $PROCESS_COUNT -le $MAX_NUM_PROCESSES ]
    # clear
    echo "Working with $PROCESS_COUNT processes"
    START=`date +%s%N | cut -b1-13`
-   mpiexec -np $PROCESS_COUNT ./benchmark 100000
+   mpiexec -np $PROCESS_COUNT ./benchmark 1000000
 
    END=`date +%s%N | cut -b1-13`
 
