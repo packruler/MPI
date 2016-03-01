@@ -25,5 +25,3 @@ while [[ $PROCESS_COUNT -le $MAX_NUM_PROCESSES ]]
       ((PROCESS_COUNT = PROCESS_COUNT * 2))
    fi
 done
-
-sudo shutdown 0
